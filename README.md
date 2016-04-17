@@ -1,2 +1,3 @@
 # softy-project
-Our COL740 project repo.
+
+a [Sails](http://sailsjs.org) application
