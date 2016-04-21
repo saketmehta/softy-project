@@ -20,3 +20,6 @@ def detail(request, profile_id):
 def messages(request, profile_id):
     response = "You're looking at messages of profile %s."
     return HttpResponse(response % profile_id)
+    
+def login(request):
+    return render (request, 'connect/login.html', {})
