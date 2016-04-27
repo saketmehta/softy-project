@@ -16,4 +16,4 @@ class UserCreateForm(UserCreationForm):
         user = super(UserCreateForm, self).save(commit=True)
         user_profile = Profile(user=user, mobile_number=self.cleaned_data['mobile_number'])
         user_profile.save()
-        return user, user_profile
+        return user

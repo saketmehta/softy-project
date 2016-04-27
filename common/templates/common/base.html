@@ -10,8 +10,9 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <title>{% block title %}Welcome!{% endblock %}</title>
-    <link rel="stylesheet" href="{% static 'home/css/bootstrap.min.css' %}">
-    <link rel="stylesheet" href="{% static 'home/style.css' %}">
+    <link rel="stylesheet" href="{% static 'common/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'common/style.css' %}">
+    {% block imports %}{% endblock %}
 </head>
 
 <body>
@@ -63,8 +64,8 @@
     <!-- /container -->
     {% endblock %}
 
-    <script src="{% static 'home/js/jquery.min.js' %}"></script>
-    <script src="{% static 'home/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'common/js/jquery.min.js' %}"></script>
+    <script src="{% static 'common/js/bootstrap.min.js' %}"></script>
 </body>
 
 </html>
