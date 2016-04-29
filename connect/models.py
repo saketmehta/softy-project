@@ -7,6 +7,7 @@ class Question(models.Model):
     profile = models.ForeignKey(Profile)
     title = models.CharField(max_length=100)
     details = models.TextField()
+    is_solved = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     

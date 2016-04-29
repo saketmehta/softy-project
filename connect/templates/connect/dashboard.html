@@ -1,0 +1,51 @@
+{% extends "common/base.html" %}
+{% load staticfiles %}
+{% load widget_tweaks %}
+{% block title %} Dashboard | App {% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1>Welcome to your dashboard!
+        <div class="btn-group pull-right" role="group">
+            <a role="button" class="btn btn-info" href="{% url 'ask' %}">Ask a Question</a>
+            <a role="button" class="btn btn-success" href="{% url 'answer' %}">Answer a Question</a>
+        </div>
+    </h1>
+</div>
+
+{% if open_questions %}
+    <div class="container">
+        <h2>Your Open Questions:</h2>
+        <ul>
+            {% for question in open_questions %}
+                <li><a href="{% url 'question-details' question.id %}">{{ question.title }}</a></li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endif %}
+
+{% if closed_questions %}
+    <div class="container">
+        <h2>Your Closed Questions:</h2>
+        <ul>
+            {% for question in closed_questions %}
+                <li><a href="{% url 'question-details' question.id %}">{{ question.title }}</a></li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endif %}
+
+{% if answers %}
+    <div class="container">
+        <h2>Your Answers:</h2>
+        <ul>
+            {% for answer in answers %}
+                <li>{{ answer.title }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endif %}
+
+<script src="{% static 'connect/js/script.js' %}"></script>
+
+{% endblock %}

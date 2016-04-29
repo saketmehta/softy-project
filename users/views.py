@@ -4,10 +4,6 @@ from django.contrib.auth import logout, login, authenticate
 from .forms import UserCreateForm
 
 # Create your views here.
-
-@login_required
-def dashboard(request):
-    return render(request, 'users/dashboard.html')
     
 def logout_view(request):
     logout(request)

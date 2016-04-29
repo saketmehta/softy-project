@@ -1,0 +1,41 @@
+{% extends "common/base.html" %}
+{% load staticfiles %}
+{% load widget_tweaks %}
+{% block title %} Ask a Question | App {% endblock %}
+
+{% block imports %}
+<link rel="stylesheet" href="{% static 'connect/css/ask.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1>Ask a question!
+        <div class="btn-group pull-right" role="group">
+            <a role="button" class="btn btn-info" href="{% url 'dashboard' %}">Dashboard</a>
+            <a role="button" class="btn btn-success" href="{% url 'answer' %}">Answer a Question</a>
+        </div>
+    </h1>
+</div>
+
+<div class="container">
+    {% if form.errors %}
+    <p>Something doesn't look right. Please try again.</p>
+    {% endif %}
+
+    <form role="form" method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="{{ form.title.id_for_label }}" class="sr-only">Title:</label>
+            {{ form.title|add_class:"form-control"|attr:"placeholder:Title"|attr:"required" }}
+        </div>
+        <div class="form-group">
+            <label for="{{ form.details.id_for_label }}" class="sr-only">Details:</label>
+            {{ form.details|add_class:"form-control"|attr:"placeholder:Description"|attr:"required" }}
+        </div>
+        <button class="btn btn-lg btn-default" type="submit">Submit</button>
+    </form>
+</div>
+
+<script src="{% static 'connect/js/script.js' %}"></script>
+
+{% endblock %}
