@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from .models import Question
 from .forms import QuestionForm
-from firebase_token_generator import create_token
+# from firebase_token_generator import create_token
 
 # Create your views here.
 
@@ -27,9 +27,9 @@ def ask(request):
 @login_required
 def question_details(request, question_id):
     question = Question.objects.get(pk=question_id)
-    auth_payload = {"uid": str(request.user.id), "username": request.user.username}
-    token = create_token("RYm9fEIJ0DLyOfAOBmRShcER71JgNPIw4cNX61GD", auth_payload)
-    return render(request, 'connect/question_details.html', {'question': question, 'token': token})
+    # auth_payload = {"uid": str(request.user.id), "username": request.user.username}
+    # token = create_token("RYm9fEIJ0DLyOfAOBmRShcER71JgNPIw4cNX61GD", auth_payload)
+    return render(request, 'connect/question_details.html', {'question': question, 'boardid': 'awwboard'+str(question.id)})
     
 @login_required
 def answer(request):
@@ -39,3 +39,10 @@ def answer(request):
 @login_required
 def history(request):
     return render(request, 'connect/history.html')
+
+@login_required
+def solved(request, question_id):
+    question = Question.objects.get(pk=question_id)
+    question.is_solved = True
+    question.save()
+    return redirect('dashboard')

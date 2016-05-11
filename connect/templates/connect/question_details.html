@@ -14,64 +14,32 @@
     <p>{{ question.details }}</p>
 </div>
 
-<!-- CHAT MARKUP -->
-<div class="example-chat container">
-    <header>Chat</header>
-
-    <div class='example-chat-toolbar'>
-        <input type='hidden' id='nameInput' value='{{ request.user.username }}'>
+<div class="container">
+    <div style="height: 500px;" id="aww-wrapper">
+    <!-- Element in which the whiteboard will be shown
+                – modify style as needed -->
     </div>
-
-    <ul id='example-messages' class="example-chat-messages"></ul>
-
-    <footer>
-        <input type='text' id='messageInput' placeholder='Type a message...'>
-    </footer>
 </div>
 
-<!-- CHAT JAVACRIPT -->
-<script>
-    // CREATE A REFERENCE TO FIREBASE
-  var messagesRef = new Firebase('https://k582btdbt1d.firebaseio-demo.com/');
+<div class="container">
+    <p class="lead"></p>
+    <div role="group">
+        <a role="button" class="btn btn-success" href="{% url 'solved' question.id %}">Solved!</a>
+        <a role="button" class="btn btn-danger" href="{% url 'dashboard' %}">Unsolved</a>
+    </div>
+</div>
 
-  // REGISTER DOM ELEMENTS
-  var messageField = $('#messageInput');
-  var nameField = $('#nameInput');
-  var messageList = $('#example-messages');
-
-  // LISTEN FOR KEYPRESS EVENT
-  messageField.keypress(function (e) {
-    if (e.keyCode == 13) {
-      //FIELD VALUES
-      var username = nameField.val();
-      var message = messageField.val();
-
-      //SAVE DATA TO FIREBASE AND EMPTY FIELD
-      messagesRef.push({name:username, text:message});
-      messageField.val('');
-    }
-  });
-
-  // Add a callback that is triggered for each chat message.
-  messagesRef.limitToLast(10).on('child_added', function (snapshot) {
-    //GET DATA
-    var data = snapshot.val();
-    var username = data.name || "anonymous";
-    var message = data.text;
-
-    //CREATE ELEMENTS MESSAGE & SANITIZE TEXT
-    var messageElement = $("<li>");
-    var nameElement = $("<strong class='example-chat-username'></strong>")
-    nameElement.text(username);
-    messageElement.text(message).prepend(nameElement);
-
-    //ADD MESSAGE
-    messageList.append(messageElement)
-
-    //SCROLL TO BOTTOM OF MESSAGE LIST
-    messageList[0].scrollTop = messageList[0].scrollHeight;
-  });
-
+<script src="https://awwapp.com/static/widget/js/aww.min.js"></script>
+<script type="text/javascript">
+    var aww = new AwwBoard('#aww-wrapper', {
+        apiKey: '554da190-5e90-439d-bfa2-76a2ec5ebf97',
+        autoJoin: true,
+        boardLink: 'TBoard-987', 
+    });
+    window.onbeforeunload = function() {
+        aww.doClear();
+    };
 </script>
+
 <!--<script src="{% static 'connect/js/script.js' %}"></script>-->
 {% endblock %}

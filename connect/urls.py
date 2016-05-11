@@ -7,4 +7,5 @@ urlpatterns = [
     url(r'^account/ask/$', views.ask, name='ask'),
     url(r'^account/question/(?P<question_id>[0-9]+)/$', views.question_details, name='question-details'),
     url(r'^account/answer/$', views.answer, name='answer'),
+    url(r'^account/question/(?P<question_id>[0-9]+)/solved/$', views.solved, name='solved'),
 ]
